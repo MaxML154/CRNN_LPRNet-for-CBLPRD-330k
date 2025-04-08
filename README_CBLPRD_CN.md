@@ -220,10 +220,10 @@ def process_double_layer_plate(img):
 ```
 
 拼接处理前:
-![双层车牌原图](asset/plate_origin.jpg)
+![双层车牌原图](/assets/plate_origin.jpg)
 
 拼接处理后: 
-![拼接处理后](asset/plate_combined.jpg)
+![拼接处理后](assets/plate_combined.png)
 
 ## 数据重采样
 
