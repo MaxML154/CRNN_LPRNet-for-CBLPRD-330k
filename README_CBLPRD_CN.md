@@ -1,6 +1,6 @@
 # CRNN-CTC & LPRNet 中国车牌识别系统 (CBLPRD-330k适配版)
 
-[Eng](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD-330k/README_CBLPRD.md "README.md")/中文
+[Eng](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD-330k/README.md "README.md")/中文
 
 本项目是基于[zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc)改进，针对[CBLPRD-330k](https://github.com/SunlifeV/CBLPRD-330k)数据集进行适配的车牌识别系统。
 
