@@ -213,10 +213,10 @@ def process_double_layer_plate(img):
 ```
 
 Before processing:
-![Original double-row plate](asset/plate_origin.jpg)
+![Original double-row plate](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD-330k/assets/plate_origin.jpg)
 
 After processing: 
-![After joining](asset/plate_combined.jpg)
+![After joining](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD-330k/assets/plate_combined.png)
 
 ## Data Resampling
 
