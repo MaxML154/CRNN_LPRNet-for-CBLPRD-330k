@@ -16,7 +16,7 @@ ENG/[中文](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD
 
 # CRNN-CTC & LPRNet Chinese License Plate Recognition System (CBLPRD-330k Version)
 
-This fork is modification from [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc) with improvements and adaptations for the [CBLPRD-330k](https://github.com/SunlifeV/CBLPRD-330k) dataset.
+This fork is a modification from [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc) with improvements and adaptations for the [CBLPRD-330k](https://github.com/SunlifeV/CBLPRD-330k) dataset.
 
 ## Features
 
