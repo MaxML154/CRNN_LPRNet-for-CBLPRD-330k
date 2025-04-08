@@ -38,7 +38,7 @@ This fork is a modification from [zjykzj/crnn-ctc](https://github.com/zjykzj/crn
 - [Modifications and Improvements](#modifications-and-improvements)
 - [References](#references)
 
-// ... existing content remains unchanged ...
+
 
 ## Features
 
