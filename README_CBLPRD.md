@@ -2,6 +2,26 @@
 
 This project is based on [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc) with improvements and adaptations for the [CBLPRD-330k](https://github.com/SunlifeV/CBLPRD-330k) dataset.
 
+## Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Supported License Plate Types](#supported-license-plate-types)
+- [Dataset Preparation](#dataset-preparation)
+- [Model Training](#model-training)
+  - [Training with CRNN Models](#training-with-crnn-models)
+  - [Training with LPRNet Models](#training-with-lprnet-models)
+- [Model Evaluation](#model-evaluation)
+- [Single Image Prediction](#single-image-prediction)
+- [Model Architecture Comparison](#model-architecture-comparison)
+  - [CRNN Model](#crnn-model)
+  - [LPRNet Model](#lprnet-model)
+  - [STNet](#stnet-spatial-transformer-network)
+- [Double-Row License Plate Processing](#double-row-license-plate-processing)
+- [Data Resampling](#data-resampling)
+- [License Plate Skew Correction](#license-plate-skew-correction)
+- [Modifications and Improvements](#modifications-and-improvements)
+- [References](#references)
+
 ## Features
 
 - Recognition support for various license plate types in the CBLPRD-330k dataset
