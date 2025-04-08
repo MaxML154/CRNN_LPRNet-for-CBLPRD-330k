@@ -9,188 +9,246 @@
 <p align="center">
   «crnn-ctc» implemented CRNN+CTC
 <br>
-<br>
-  <a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square" alt=""></a>
-  <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt=""></a>
-  <a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt=""></a>
-</p>
 
-ONLINE DEMO：[LICENSE PLATE RECOGNITION](https://blog.zjykzj.cn/gradio/plate_recog/)
+Eng/中文[README_CBLPRD_CN.md](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD-330k/README_CBLPRD_CN.md)
 
-|   **Model**   | **ARCH** | **Input Shape** | **GFLOPs** | **Model Size (MB)** | **EMNIST Accuracy (%)** | **Training Data** | **Testing Data** |
-|:-------------:|:--------:|:---------------:|:----------:|:-------------------:|:-----------------------:|:-----------------:|:----------------:|
-|   **CRNN**    | CONV+GRU |  (1, 32, 160)   |    2.2     |         31          |         98.570          |      100,000      |      5,000       |
-| **CRNN_Tiny** | CONV+GRU |  (1, 32, 160)   |    0.1     |         1.7         |         98.306          |      100,000      |      5,000       |
+# CRNN-CTC & LPRNet Chinese License Plate Recognition System (CBLPRD-330k Version)
 
-|      **Model**       | **ARCH** | **Input Shape** | **GFLOPs** | **Model Size (MB)** | **ChineseLicensePlate Accuracy (%)** | **Training Data** | **Testing Data** |
-|:--------------------:|:--------:|:---------------:|:----------:|:-------------------:|:------------------------------------:|:-----------------:|:----------------:|
-|       **CRNN**       | CONV+GRU |  (3, 48, 168)   |    4.0     |         58          |                82.147                |      269,621      |     149,002      |
-|    **CRNN_Tiny**     | CONV+GRU |  (3, 48, 168)   |    0.3     |         4.0         |                76.590                |      269,621      |     149,002      |
-|    **LPRNetPlus**    |   CONV   |   (3, 24, 94)   |    0.5     |         2.3         |                63.546                |      269,621      |     149,002      |
-|      **LPRNet**      |   CONV   |   (3, 24, 94)   |    0.3     |         1.9         |                60.105                |      269,621      |     149,002      |
-| **LPRNetPlus+STNet** |   CONV   |   (3, 24, 94)   |    0.5     |         2.5         |                72.130                |      269,621      |     149,002      |
-|   **LPRNet+STNet**   |   CONV   |   (3, 24, 94)   |    0.3     |         2.2         |                72.261                |      269,621      |     149,002      |
+This project is based on [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc) with improvements and adaptations for the [CBLPRD-330k](https://github.com/SunlifeV/CBLPRD-330k) dataset.
 
-For each sub-dataset, the model performance as follows:
+## Features
 
-|      **Model**       | **CCPD2019-Test Accuracy (%)** | **Testing Data** | **CCPD2020-Test Accuracy (%)** | **Testing Data** |
-|:--------------------:|:------------------------------:|:----------------:|:------------------------------:|:----------------:|
-|       **CRNN**       |             81.512             |     141,982      |             93.787             |      5,006       |
-|    **CRNN_Tiny**     |             75.729             |     141,982      |             92.829             |      5,006       |
-|    **LPRNetPlus**    |             62.184             |     141,982      |             89.373             |      5,006       |
-|      **LPRNet**      |             59.597             |     141,982      |             89.153             |      5,006       |
-| **LPRNetPlus+STNet** |             72.125             |     141,982      |             90.611             |      5,006       |
-|   **LPRNet+STNet**   |             71.291             |     141,982      |             89.832             |      5,006       |
-
-***If you want to achieve license plate detection, segmentation, and recognition simultaneously, please refer to [zjykzj/LPDet](https://github.com/zjykzj/LPDet).***
-
-## Table of Contents
-
-- [Table of Contents](#table-of-contents)
-- [News🚀🚀🚀](#news)
-- [Background](#background)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Train](#train)
-  - [Eval](#eval)
-  - [Predict](#predict)
-- [Maintainers](#maintainers)
-- [Thanks](#thanks)
-- [Contributing](#contributing)
-- [License](#license)
-
-## News🚀🚀🚀
-
-| Version                                                          | Release Date | Major Updates                                                                                                                                           |
-|------------------------------------------------------------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [v1.3.0](https://github.com/zjykzj/crnn-ctc/releases/tag/v1.3.0) | 2024/09/21   | Add **STNet** module to LPRNet/LPRNetPlus and update the training/evaluation/prediction results on the CCPD dataset.                                    |
-| [v1.2.0](https://github.com/zjykzj/crnn-ctc/releases/tag/v1.2.0) | 2024/09/17   | Create a new **LPRNet/LPRNetPlus** model and update the training/evaluation/prediction results on the CCPD dataset.                                     |
-| [v1.1.0](https://github.com/zjykzj/crnn-ctc/releases/tag/v1.1.0) | 2024/08/17   | Update EVAL/PREDICT implementation, support Pytorch format model conversion to ONNX, and finally provide online demo based on Gradio.                   |
-| [v1.0.0](https://github.com/zjykzj/crnn-ctc/releases/tag/v1.0.0) | 2024/08/04   | Optimize the CRNN architecture while achieving super lightweight **CRNN_Tiny**. <br>In addition, all training scripts support mixed precision training. |
-| [v0.3.0](https://github.com/zjykzj/crnn-ctc/releases/tag/v0.3.0) | 2024/08/03   | Implement models **CRNN_LSTM** and **CRNN_GRU** on datasets EMNIST and ChineseLicensePlate.                                                             |
-| [v0.2.0](https://github.com/zjykzj/crnn-ctc/releases/tag/v0.2.0) | 2023/10/11   | Support training/evaluation/prediction of CRNN+CTC based on license plate.                                                                              |
-| [v0.1.0](https://github.com/zjykzj/crnn-ctc/releases/tag/v0.1.0) | 2023/10/10   | Support training/evaluation/prediction of CRNN+CTC based on EMNIST digital characters.                                                                  |
-
-## Background
-
-This warehouse aims to better understand and apply CRNN+CTC, and has currently achieved digital recognition and license plate recognition. Meanwhile, LPRNet(+STNet) is a pure convolutional architecture for license plate recognition network. I believe that the implementation of these algorithms can help with the deployment of license plate recognition algorithms, such as on edge devices.
-
-Relevant papers include:
-
-1. [Towards End-to-End License Plate Detection and Recognition: A Large Dataset and Baseline](https://openaccess.thecvf.com/content_ECCV_2018/papers/Zhenbo_Xu_Towards_End-to-End_License_ECCV_2018_paper.pdf)
-2. [An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition](https://arxiv.org/abs/1507.05717)
-3. [Connectionist Temporal Classification: Labelling Unsegmented Sequence Data with Recurrent Neural Networks](https://www.cs.toronto.edu/~graves/icml_2006.pdf)
-4. [LPRNet: License Plate Recognition via Deep Neural Networks](https://arxiv.org/abs/1806.10447)
-
-Relevant blogs (*Chinese*):
-
-1. [Towards End-to-End License Plate Detection and Recognition: A Large Dataset and Baseline](https://blog.zjykzj.cn/posts/e3db0e3d.html)
-2. [An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition](https://blog.zjykzj.cn/posts/a25a6bef.html)
-3. [LPRNet: License Plate Recognition via Deep Neural Networks](https://blog.zjykzj.cn/posts/c9eab5b1.html)
+- Recognition support for various license plate types in the CBLPRD-330k dataset
+- Two mainstream model architectures:
+  - CRNN (Convolutional Recurrent Neural Network)
+  - LPRNet (License Plate Recognition Network) and STNet (Spatial Transformer Network)
+- Automatic double-row license plate processing (tractor green plates, double-row yellow plates, etc.)
+- License plate skew correction to improve recognition accuracy
+- Data resampling mechanism to solve the long-tail effect
+- License plate type recognition (blue, yellow, green, embassy/consulate plates, etc.)
+- Lightweight models suitable for deployment on edge devices
 
 ## Installation
 
-```shell
-$ pip install -r requirements.txt
+```bash
+# Clone the repository
+git clone https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k.git
+cd CRNN_LPRNet-for-CBLPRD-330k
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-Or use docker container
+## Supported License Plate Types
 
-```shell
-$ docker run -it --runtime nvidia --gpus=all --shm-size=16g -v /etc/localtime:/etc/localtime -v $(pwd):/workdir --workdir=/workdir --name crnn-ctc ultralytics/yolov5:latest
+The CBLPRD-330k dataset contains various types of Chinese license plates, which we have adapted for:
+
+1. Standard blue plates (e.g., "粤A·662C1")
+2. New energy vehicle plates (e.g., "赣P·DG0218")
+3. Single-row yellow plates (e.g., "皖B·14WJM")
+4. Double-row yellow plates for trailers (e.g., "藏·SF1G2挂")
+5. Tractor green plates (e.g., "湘18EZZG1")
+6. Hong Kong and Macau entry plates (e.g., "粤Z·901Z港", "粤Z·TY67澳")
+7. Embassy/consulate plates (e.g., "宁479·16领", "434·404使")
+8. Driving school plates (with "学" character)
+9. Temporary plates (with "临" character)
+
+## Dataset Preparation
+
+The CBLPRD-330k dataset comes with training and validation set listings in the following format:
+
+```
+CBLPRD-330k/000208356.jpg 湘18EZZG1 拖拉机绿牌
 ```
 
-## Usage
+This indicates the image path, license plate number, and license plate type.
 
-### Train
+If you need to split the dataset by license plate type, you can use the following commands:
 
-* ChineseLicensePlate: [Baidu Drive](https://pan.baidu.com/s/1fQh0E9c6Z4satvrEthKevg)(ad7l)
+```bash
+# Split the dataset in a 7:2:1 ratio, balancing by plate type
+python split_dataset.py /path/to/data.txt --data-root /path/to/CBLPRD-330k --output-dir /path/to/output --ratio 7:2:1 --by-plate-type --balance
 
-```shell
-# EMNIST
-$ python3 train_emnist.py ../datasets/emnist/ ./runs/crnn-emnist-b512/ --batch-size 512 --device 0 --not-tiny
-# Plate
-$ python3 train_plate.py ../datasets/chinese_license_plate/recog/ ./runs/crnn-plate-b512/ --batch-size 512 --device 0 --not-tiny
+# Create separate dataset files for each plate type
+python split_dataset.py /path/to/data.txt --data-root /path/to/CBLPRD-330k --output-dir /path/to/output --ratio 7:2:1 --by-plate-type --balance --output-by-type
 ```
 
-### Eval
 
-```shell
-# EMNIST
-$ CUDA_VISIBLE_DEVICES=0 python eval_emnist.py crnn-emnist.pth ../datasets/emnist/ --not-tiny
-args: Namespace(not_tiny=True, pretrained='crnn-emnist.pth', use_lstm=False, val_root='../datasets/emnist/')
-Loading CRNN pretrained: crnn-emnist.pth
-crnn-emnist summary: 29 layers, 7924363 parameters, 7924363 gradients, 2.2 GFLOPs
-Batch:49999 ACC:100.000: 100%|████████████████████████████████████████████████████████| 50000/50000 [03:47<00:00, 219.75it/s]
-ACC:98.570
-# Plate
-$ CUDA_VISIBLE_DEVICES=0 python3 eval_plate.py crnn-plate.pth ../datasets/chinese_license_plate/recog/ --not-tiny
-args: Namespace(add_stnet=False, not_tiny=True, only_ccpd2019=False, only_ccpd2020=False, only_others=False, pretrained='crnn-plate.pth', use_lprnet=False, use_lstm=False, use_origin_block=False, val_root='../datasets/chinese_license_plate/recog/')
-Loading CRNN pretrained: crnn-plate.pth
-crnn-plate summary: 29 layers, 15083854 parameters, 15083854 gradients, 4.0 GFLOPs
-Load test data: 149002
-Batch:4656 ACC:100.000: 100%|████████████████████████████████████████████████████████████| 4657/4657 [00:52<00:00, 89.13it/s]
-ACC:82.147
+
+## Model Training
+
+### Training with CRNN Models
+
+```bash
+# Basic training (CRNN_Tiny)
+python train_cblprd.py /path/to/CBLPRD-330k/ ./runs/crnn_tiny-cblprd/ --batch-size 512 --device 0
+
+# Enable all features
+python train_cblprd.py /path/to/CBLPRD-330k/ ./runs/crnn_tiny-cblprd/ --batch-size 512 --device 0 --use-resampling --correct-skew
+
+# Use standard CRNN (non-Tiny version)
+python train_cblprd.py /path/to/CBLPRD-330k/ ./runs/crnn-cblprd/ --batch-size 256 --device 0 --not-tiny --use-resampling --correct-skew
+
+# Use LSTM instead of GRU
+python train_cblprd.py /path/to/CBLPRD-330k/ ./runs/crnn_tiny_lstm-cblprd/ --batch-size 512 --device 0 --use-lstm --use-resampling --correct-skew
 ```
 
-### Predict
+### Training with LPRNet Models
 
-```shell
-$ CUDA_VISIBLE_DEVICES=0 python predict_emnist.py crnn-emnist.pth ../datasets/emnist/ ./runs/predict/emnist/ --not-tiny
-args: Namespace(not_tiny=True, pretrained='crnn-emnist.pth', save_dir='./runs/predict/emnist/', use_lstm=False, val_root='../datasets/emnist/')
-Loading CRNN pretrained: crnn-emnist.pth
-crnn-emnist summary: 29 layers, 7924363 parameters, 7924363 gradients, 2.2 GFLOPs
-Label: [0 4 2 4 7] Pred: [0 4 2 4 7]
-Label: [2 0 6 5 4] Pred: [2 0 6 5 4]
-Label: [7 3 9 9 5] Pred: [7 3 9 9 5]
-Label: [9 6 6 0 9] Pred: [9 6 6 0 9]
-Label: [2 3 0 7 6] Pred: [2 3 0 7 6]
-Label: [6 5 9 5 2] Pred: [6 5 9 5 2]
+```bash
+# Use LPRNetPlus (improved version of LPRNet)
+python train_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet_plus-cblprd-b512/ --batch-size 512 --device 0
+
+# Use original LPRNet
+python train_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet-cblprd-b512/ --batch-size 512 --device 0 --use-origin-block
+
+# Use LPRNetPlus+STNet (Spatial Transformer Network)
+python train_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet_plus_stnet-cblprd-b512/ --batch-size 512 --device 0 --add-stnet
+
+# Use LPRNet+STNet
+python train_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet_stnet-cblprd-b512/ --batch-size 512 --device 0 --use-origin-block --add-stnet
 ```
 
-![](assets/predict/emnist/predict_emnist.jpg)
+### Training Parameters
 
-```shell
-$ CUDA_VISIBLE_DEVICES=0 python predict_plate.py crnn-plate.pth ./assets/plate/宁A87J92_0.jpg runs/predict/plate/ --not-tiny
-args: Namespace(add_stnet=False, image_path='./assets/plate/宁A87J92_0.jpg', not_tiny=True, pretrained='crnn-plate.pth', save_dir='runs/predict/plate/', use_lprnet=False, use_lstm=False, use_origin_block=False)
-Loading CRNN pretrained: crnn-plate.pth
-crnn-plate summary: 29 layers, 15083854 parameters, 15083854 gradients, 4.0 GFLOPs
-Pred: 宁A·87J92 - Predict time: 5.4 ms
-Save to runs/predict/plate/plate_宁A87J92_0.jpg
-$ CUDA_VISIBLE_DEVICES=0 python predict_plate.py crnn-plate.pth ./assets/plate/川A3X7J1_0.jpg runs/predict/plate/ --not-tiny
-args: Namespace(add_stnet=False, image_path='./assets/plate/川A3X7J1_0.jpg', not_tiny=True, pretrained='crnn-plate.pth', save_dir='runs/predict/plate/', use_lprnet=False, use_lstm=False, use_origin_block=False)
-Loading CRNN pretrained: crnn-plate.pth
-crnn-plate summary: 29 layers, 15083854 parameters, 15083854 gradients, 4.0 GFLOPs
-Pred: 川A·3X7J1 - Predict time: 4.7 ms
-Save to runs/predict/plate/plate_川A3X7J1_0.jpg
+- `--use-resampling`: Enable data resampling to mitigate the long-tail effect
+- `--correct-skew`: Enable license plate skew correction
+- `--no-double-process`: Disable double-row license plate processing (enabled by default)
+
+LPRNet-specific parameters:
+- `--use-origin-block`: Use original LPRNet implementation instead of LPRNetPlus
+- `--add-stnet`: Add STNet spatial transformer network
+- `--dropout-rate`: Set dropout rate (default 0.5)
+
+## Model Evaluation
+
+### Evaluating CRNN Models
+
+```bash
+# Basic evaluation
+python evaluate_cblprd.py /path/to/CBLPRD-330k/ ./runs/crnn_tiny-cblprd/crnn_tiny-cblprd-best.pth --batch-size 64 --device 0
+
+# Enable all features
+python evaluate_cblprd.py /path/to/CBLPRD-330k/ ./runs/crnn_tiny-cblprd/crnn_tiny-cblprd-best.pth --batch-size 64 --device 0 --correct-skew
 ```
 
-<p align="left"><img src="assets/predict/plate/plate_宁A87J92_0.jpg" height="240"\>  <img src="assets/predict/plate/plate_川A3X7J1_0.jpg" height="240"\></p>
+### Evaluating LPRNet Models
 
-## Maintainers
+```bash
+# Evaluate LPRNetPlus
+python evaluate_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet_plus-cblprd-b512/lprnet_plus-cblprd-b512-best.pth --batch-size 64 --device 0
 
-* zhujian - *Initial work* - [zjykzj](https://github.com/zjykzj)
+# Evaluate original LPRNet
+python evaluate_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet-cblprd-b512/lprnet-cblprd-b512-best.pth --batch-size 64 --device 0 --use-origin-block
 
-## Thanks
+# Evaluate LPRNetPlus+STNet
+python evaluate_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet_plus_stnet-cblprd-b512/lprnet_plus_stnet-cblprd-b512-best.pth --batch-size 64 --device 0 --add-stnet
 
-* [rinabuoy/crnn-ctc-loss-pytorch](https://github.com/rinabuoy/crnn-ctc-loss-pytorch.git)
-* [we0091234/crnn_plate_recognition](https://github.com/we0091234/crnn_plate_recognition.git)
-* [sirius-ai/LPRNet_Pytorch](https://github.com/sirius-ai/LPRNet_Pytorch)
-* [CA-USTC/License_Plate_Recognition_pytorch](https://github.com/CA-USTC/License_Plate_Recognition_pytorch)
-* [zjykzj/LPDet](https://github.com/zjykzj/LPDet)
+# Save detailed evaluation results
+python evaluate_cblprd_lprnet.py /path/to/CBLPRD-330k/ ./runs/lprnet_plus-cblprd-b512/lprnet_plus-cblprd-b512-best.pth --batch-size 64 --device 0 --save-results
+```
 
-## Contributing
+## Single Image Prediction
 
-Anyone's participation is welcome! Open an [issue](https://github.com/zjykzj/crnn-ctc/issues) or submit PRs.
+```bash
+# Basic prediction
+python predict_cblprd.py ./runs/crnn_tiny-cblprd/crnn_tiny-cblprd-best.pth ./sample_image.jpg ./runs/predict/
 
-Small note:
+# Enable all features
+python predict_cblprd.py ./runs/crnn_tiny-cblprd/crnn_tiny-cblprd-best.pth ./sample_image.jpg ./runs/predict/ --correct-skew --determine-type
+```
 
-* Git submission specifications should be complied
-  with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
-* If versioned, please conform to the [Semantic Versioning 2.0.0](https://semver.org) specification
-* If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme)
-  specification.
+### Prediction Parameters
 
-## License
+- `--correct-skew`: Enable license plate skew correction
+- `--no-double-process`: Disable double-row license plate processing (enabled by default)
+- `--determine-type`: Display the recognized plate type
 
-[Apache License 2.0](LICENSE) © 2023 zjykzj
+## Model Architecture Comparison
+
+### CRNN Model
+
+CRNN (Convolutional Recurrent Neural Network) combines the advantages of CNN and RNN:
+- CNN part extracts image features
+- RNN part (GRU or LSTM) models sequence features
+- CTC loss function handles sequence recognition without requiring precise alignment
+
+We provide two versions:
+- CRNN_Tiny: Lightweight version with fewer parameters, suitable for edge device deployment
+- CRNN: Standard version with higher accuracy but greater computational cost
+
+### LPRNet Model
+
+LPRNet is a lightweight network specifically designed for license plate recognition:
+- Built with small basic blocks
+- No RNN layer, achieving sequence recognition directly through global context
+- Smaller network size and faster inference speed
+
+We provide two versions:
+- LPRNet: Original implementation
+- LPRNetPlus: Improved version with residual connections
+
+### STNet (Spatial Transformer Network)
+
+STNet can be combined with LPRNet:
+- Performs spatial transformations on input images before feature extraction
+- Automatically learns to correct geometric distortions in input images
+- Improves recognition ability for skewed and deformed license plates
+
+## Double-Row License Plate Processing
+
+For double-row license plates (such as tractor green plates, double-row trailer yellow plates), we use a method that joins them into a single-row plate for recognition:
+
+```python
+def process_double_layer_plate(img):
+    """Process double-row license plates by joining them into a single row"""
+    h, w, c = img.shape
+    img_upper = img[0:int(5/12*h), :]  # Upper part of the plate
+    img_lower = img[int(1/3*h):, :]    # Lower part of the plate
+    img_upper = cv2.resize(img_upper, (img_lower.shape[1], img_lower.shape[0]))
+    new_img = np.hstack((img_upper, img_lower))
+    return new_img
+```
+
+Before processing:
+![Original double-row plate](asset/plate_origin.jpg)
+
+After processing: 
+![After joining](asset/plate_combined.jpg)
+
+## Data Resampling
+
+To address the uneven distribution of license plate provinces in the dataset, we implemented a data resampling mechanism:
+
+1. Count the number of plates from each province
+2. Oversample provinces with sample counts below the median
+3. Control the maximum oversampling multiplier to avoid overfitting
+
+## License Plate Skew Correction
+
+Hough transform is used to correct skewed license plates:
+
+1. Detect straight lines in the license plate image
+2. Calculate the skew angle of the main horizontal lines
+3. Rotate the image based on the angle for correction
+
+## Modifications and Improvements
+
+This project is based on [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc) with the following improvements for the CBLPRD-330k dataset:
+
+1. Added `utils/dataset/cblprd.py` to handle the CBLPRD-330k dataset
+2. Added LPRNet and STNet models, providing more model options
+3. Implemented automatic double-row license plate processing (enabled by default)
+4. Implemented license plate skew correction
+5. Added data resampling mechanism
+6. Added license plate type recognition functionality
+7. Added dataset splitting tool with support for plate type-based splitting
+
+## References
+
+- [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc)
+- [SunlifeV/CBLPRD-330k](https://github.com/SunlifeV/CBLPRD-330k)
+- [we0091234/crnn_plate_recognition](https://github.com/we0091234/crnn_plate_recognition)
+- [LPRNet Paper: LPRNet: License Plate Recognition via Deep Neural Networks](https://arxiv.org/abs/1806.10447)
+- [STNet Paper: Spatial Transformer Networks](https://arxiv.org/abs/1506.02025)
+- [guyuealian/blog](https://blog.csdn.net/guyuealian/article/details/128704209) 
