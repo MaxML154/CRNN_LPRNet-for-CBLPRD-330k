@@ -10,7 +10,7 @@
   «crnn-ctc» implemented CRNN+CTC
 <br>
 
-Eng/中文[README_CBLPRD_CN.md](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD-330k/README_CBLPRD_CN.md)
+Eng/[中文](https://github.com/MaxML154/CRNN_LPRNet-for-CBLPRD-330k/blob/CBLPRD-330k/README_CBLPRD_CN.md)
 
 # CRNN-CTC & LPRNet Chinese License Plate Recognition System (CBLPRD-330k Version)
 
