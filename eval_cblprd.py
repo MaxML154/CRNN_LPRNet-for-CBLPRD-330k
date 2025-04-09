@@ -3,7 +3,7 @@
 """
 @date: 2024/4/8
 @file: eval_cblprd.py
-@author: [Your Name]
+@author: MaxML154
 @description: Evaluation script for CBLPRD-330k dataset
 
 Usage - Single-GPU eval:
