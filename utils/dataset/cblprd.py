@@ -3,7 +3,7 @@
 """
 @date: 2024/4/8
 @file: cblprd.py
-@author: [Your Name]
+@author: MaxML154
 @description: Dataset handler for CBLPRD-330k dataset with support for various plate types
 """
 
