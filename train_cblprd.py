@@ -3,7 +3,7 @@
 """
 @date: 2024/4/8
 @file: train_cblprd.py
-@author: [Your Name]
+@author: MaxML154
 @description: Training script for CBLPRD-330k dataset using CRNN_Tiny
 
 Usage - Single-GPU training using CRNN_Tiny:
