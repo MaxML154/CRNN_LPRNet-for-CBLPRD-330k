@@ -69,11 +69,17 @@ The following table shows the performance comparison of different models on the 
 | LPRNet + STNet | 94×24 | - | - | - |
 | LPRNetPlus + STNet | 94×24 | - | - | - |
 
-*Note: Training time was measured on a single NVIDIA V100 32G GPU. Model size refers to the size of the .pth file. Recognition accuracy refers to the overall sample-level accuracy.*
-*The number of training set samples is 239478, the number of validation set samples is 68423, and the number of test set samples is 34212.*
-*LPRNet + STNet models are still working on it... Seems need to adjust the setting or structure of STNet so that would achieve proper performance.*
-*Unless otherwise specified, the results shown here are those after adjusting the framework.*
-*The experimental results may vary slightly on different devices and are shown here for reference only.*
+**Note**
+
+- *Training time was measured on a single NVIDIA V100 32G GPU. Model size refers to the size of the .pth file. Recognition accuracy refers to the overall sample-level accuracy.*
+
+- *The number of training set samples is 239478, the number of validation set samples is 68423, and the number of test set samples is 34212.*
+
+- *LPRNet + STNet models are still working on it... Seems need to adjust the setting or structure of STNet so that would achieve proper performance.*
+
+- *Unless otherwise specified, the results shown here are those after adjusting the framework.*
+
+- *The experimental results may vary slightly on different devices and are shown here for reference only.*
 
 
 ## Installation
