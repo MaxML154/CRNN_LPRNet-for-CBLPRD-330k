@@ -75,6 +75,8 @@ The following table shows the performance comparison of different models on the 
 
 - *The number of training set samples is 239478, the number of validation set samples is 68423, and the number of test set samples is 34212.*
 
+- *All experiments were conducted with a batch size of 512 and 30 epochs, with 5 epochs of warmup during training. The learning rate was set to 0.001, weight decay to 1e-05, using Adam optimizer and MultiStepLR scheduler for learning rate adjustment. Mixed precision training was enabled by default.*
+
 - *LPRNet + STNet models are still working on it... Seems need to adjust the setting or structure of STNet so that would achieve proper performance.*
 
 - *Unless otherwise specified, the results shown here are those after adjusting the framework.*
