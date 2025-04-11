@@ -63,7 +63,7 @@ The following table shows the performance comparison of different models on the 
 | CRNN_Tiny (Standard, with LSTM) | 128×48 | 2.0 | 5.1 | 94 |
 | CRNN_Tiny + LSTM | 128×48 | 1.4 | 5.1 | 98.5 |
 | LPRNet (Standard) | 94×24 | 0.8 | 1.7 | 84.3 |
-| LPRNet | 94×24 | 0.5 | 1.8 | 1.8 | 91.2 |
+| LPRNet | 94×24 | 0.5 | 1.8 | 91.2 |
 | LPRNetPlus (Standard) | 94×24 | 0.5 | 2.1 | 87.14 |
 | LPRNetPlus | 94×24 | 0.52 | 2.13 | 93.6 |
 | LPRNet + STNet | 94×24 | - | - | - |
