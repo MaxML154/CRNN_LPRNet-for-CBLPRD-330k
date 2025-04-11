@@ -1,9 +1,9 @@
 # CRNN-CTC & LPRNet Chinese License Plate Recognition System (CBLPRD-330k Version)
 
 This project is based on [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc) with improvements and adaptations for the [CBLPRD-330k](https://github.com/SunlifeV/CBLPRD-330k) dataset.
-
 ## Contents
 - [Features](#features)
+- [Experimental Results](#experimental-results)
 - [Installation](#installation)
 - [Supported License Plate Types](#supported-license-plate-types)
 - [Dataset Preparation](#dataset-preparation)
@@ -33,6 +33,31 @@ This project is based on [zjykzj/crnn-ctc](https://github.com/zjykzj/crnn-ctc) w
 - Data resampling mechanism to solve the long-tail effect
 - License plate type recognition (blue, yellow, green, embassy/consulate plates, etc.)
 - Lightweight models suitable for deployment on edge devices
+
+## Experimental Results
+
+The following table shows the performance comparison of different models on the CBLPRD-330k dataset:
+
+| Model | Input Size | Training Time (h) | Model Size (MB)  | Recognition Accuracy (%) |
+|-------|------------|--------------|------------|---------------------|
+| CRNN + GRU | 128×48 | 2.7 | 65.1 | 99.7 |
+| CRNN_Tiny + GRU | 128×48 | 2.5 | 4 | 99.1 |
+| CRNN (Standard, with LSTM) | 128×48 | 2.0 | 69.5 | 98.42 |
+| CRNN_Tiny (Standard, with LSTM) | 128×48 | 2.0 | 5.1 | 94 |
+| CRNN_Tiny + LSTM | 128×48 | 1.4 | 5.1 | 98.5 |
+| LPRNet (Standard) | 94×24 | 0.8 | 1.7 | 84.3 |
+| LPRNet | 94×24 | 0.5 | 1.8 | 1.8 | 91.2 |
+| LPRNetPlus (Standard) | 94×24 | 0.5 | 2.1 | 87.14 |
+| LPRNetPlus | 94×24 | 0.52 | 2.13 | 93.6 |
+| LPRNet + STNet | 94×24 | - | - | - |
+| LPRNetPlus + STNet | 94×24 | - | - | - |
+
+*Note: Training time was measured on a single NVIDIA V100 32G GPU. Model size refers to the size of the .pth file. Recognition accuracy refers to the overall sample-level accuracy.*
+*The number of training set samples is 239478, the number of validation set samples is 68423, and the number of test set samples is 34212.*
+*LPRNet + STNet models are still working on it... Seems need to adjust the setting or structure of STNet so that would achieve proper performance.*
+*Unless otherwise specified, the results shown here are those after adjusting the framework.*
+*The experimental results may vary slightly on different devices and are shown here for reference only.*
+
 
 ## Installation
 
